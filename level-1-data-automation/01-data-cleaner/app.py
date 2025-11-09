@@ -2,24 +2,21 @@ import streamlit as st
 import pandas as pd
 from script import clean_dataframe
 
-def main():
-    st.title("Data Cleaner Otomatis")
-    uploaded_file = st.file_uploader("Upload file Excel atau CSV", type=["xlsx", "csv"])
+st.title("Data Cleaner Otomatis")
 
-    if uploaded_file:
-        if uploaded_file.name.endswith("csv"):
-            df = pd.read_csv(uploaded_file)
-        else:
-            df = pd.read_excel(uploaded_file)
+uploaded_file = st.file_uploader("Upload file Excel atau CSV", type=["xlsx", "csv"])
 
-        st.subheader("Sebelum")
-        st.dataframe(df)
+if uploaded_file:
+    if uploaded_file.name.endswith("csv"):
+        df = pd.read_csv(uploaded_file)
+    else:
+        df = pd.read_excel(uploaded_file)
 
-        cleaned = clean_dataframe(df)
-        st.subheader("Sesudah")
-        st.dataframe(cleaned)
+    st.subheader("Sebelum")
+    st.dataframe(df)
 
-        st.download_button("Download Hasil", cleaned.to_csv(index=False), "cleaned.csv", "text/csv")
+    cleaned = clean_dataframe(df)
+    st.subheader("Sesudah")
+    st.dataframe(cleaned)
 
-if __name__ == "__main__":
-    main()
+    st.download_button("Download Hasil", cleaned.to_csv(index=False), "cleaned.csv", "text/csv")
